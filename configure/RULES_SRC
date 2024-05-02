@@ -51,16 +51,27 @@ distclean:
 
 .PHONY: info.ant clean.ant  build.ant copy.sitespecific mkdir.wars
 
+info.java:
+	$(QUIET)echo "-------------------------------------------------------------"
+	$(QUIET)echo ">>> JAVA information"
+	$(QUIET)echo "JAVA : $(JAVA_PATH)/java"
+	$(QUIET)$(JAVA_PATH)/java -version
+	$(QUIET)echo "-------------------------------------------------------------"
+
 ## Ant and Java
-info.ant:
+info.ant: info.java
 	$(QUIET)echo "-------------------------------------------------------------"
 	$(QUIET)echo ">>> Ant  information"
 	$(QUIET)echo "Ant : $(ANT_PATH)/ant"
 	$(QUIET)$(ANT_PATH)/ant -version
 	$(QUIET)echo "-------------------------------------------------------------"
-	$(QUIET)echo ">>> JAVA information"
-	$(QUIET)echo "JAVA : $(JAVA_PATH)/java"
-	$(QUIET)$(JAVA_PATH)/java -version
+
+## Gradle
+info.gradle: info.java
+	$(QUIET)echo "-------------------------------------------------------------"
+	$(QUIET)echo ">>> Gradle  information"
+	$(QUIET)echo "Gradle : $(SRC_PATH)/gradlew"
+	$(QUIET)$(SRC_PATH)/gradlew -version
 	$(QUIET)echo "-------------------------------------------------------------"
 
 ## Clean
@@ -71,7 +82,7 @@ clean.ant: info.ant
 build.ant: info.ant copy.sitespecific | mkdir.wars
 	cd $(SRC_PATH) && JAVA_HOME=$(JAVA_HOME) $(ANT_CMD) $(ANT_OPTS) && cd ..
 
-build.gradle: copy.sitespecific | mkdir.wars
+build.gradle: info.gradle copy.sitespecific | mkdir.wars
 	cd $(SRC_PATH) 
 	ARCHAPPL_SITEID=$(ARCHAPPL_SITEID) $(SRC_PATH)/gradlew -b $(SRC_PATH)/build.gradle assemble 
 	mv $(SRC_PATH)/build/libs/mgmt.war $(ARCHAPPL_WARS_TARGET_PATH)
