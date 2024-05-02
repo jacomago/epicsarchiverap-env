@@ -1,0 +1,15 @@
+name: test
+
+on: 
+    push: 
+        branches:
+          - "*"
+jobs:
+    buildgradle:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - name: init
+              run: make init
+            - name: build
+              run: make build.gradle
