@@ -68,6 +68,15 @@ clean.ant: info.ant
 build.ant: info.ant copy.sitespecific | mkdir.wars
 	cd $(SRC_PATH) && JAVA_HOME=$(JAVA_HOME) $(ANT_CMD) $(ANT_OPTS) && cd ..
 
+build.gradle: copy.sitespecific | mkdir.wars
+	cd $(SRC_PATH) 
+	ARCHAPPL_SITEID=$(ARCHAPPL_SITEID) $(SRC_PATH)/gradlew -b $(SRC_PATH)/build.gradle assemble 
+	mv $(SRC_PATH)/build/libs/mgmt.war $(ARCHAPPL_WARS_TARGET_PATH)
+	mv $(SRC_PATH)/build/libs/engine.war $(ARCHAPPL_WARS_TARGET_PATH)
+	mv $(SRC_PATH)/build/libs/etl.war $(ARCHAPPL_WARS_TARGET_PATH)
+	mv $(SRC_PATH)/build/libs/retrieval.war $(ARCHAPPL_WARS_TARGET_PATH)
+	cd ..
+
 ## Site Build
 build.site: info.ant copy.sitespecific | mkdir.wars
 	cd $(SRC_PATH) && JAVA_HOME=$(JAVA_HOME) $(ANT_CMD) $(ANT_OPTS) sitespecificbuild && cd ..
