@@ -25,7 +25,7 @@ default: help
 
 .PHONY: init clone update deinit distclean checkout srcupdate
 ## Clone and update Source
-init: clone update
+init: fetch
 
 # gitclone use '-C' option, so git version should be more than 1.8.5. CentOS7 git is imcompatiable.
 #
@@ -99,7 +99,7 @@ mkdir.wars:
 
 
 ## Conf and Build
-build: conf build.ant
+build: conf build.gradle
 
 ## Configuration
 conf: conf.archapplproperties conf.storage
