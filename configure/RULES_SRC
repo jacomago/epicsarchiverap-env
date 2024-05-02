@@ -35,6 +35,9 @@ clone:
 update:
 	$(QUIET)cd $(SRC_PATH) && git submodule update --init ./
 
+fetch:
+	$(call zipfetchgithub,$(SRC_ZIPURL),$(SRC_PATH))
+
 checkout:
 	$(QUIET)cd $(SRC_PATH) && git checkout $(SRC_TAG)
 

@@ -7,6 +7,7 @@
 ### One may not need to change the following variables
 ### SRC_GITURL used for git clone
 SRC_GITURL:=$(SRC_URL)/$(SRC_NAME)
+SRC_ZIPURL:=$(SRC_GITURL)/archive/$(SRC_TAG).zip
 ### CF_SRC_PATH used for a local directory which is a clone git repository
 SRC_PATH:=$(SRC_NAME)-src
 

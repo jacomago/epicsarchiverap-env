@@ -39,6 +39,10 @@ define gitclone3
 $(if $(wildcard $(2)), @echo"", git clone  $(1) $(2); git -C $(2) checkout $(3))
 endef
 
+define zipfetchgithub
+$(if $(wildcard $(2)), @echo"", curl -L $(1) -o temp.zip; unzip temp.zip -d $(2); rm temp.zip; cd $(2); mv */* .)
+endef
+
 define checkfile
 $(if $(wildcard $(1)), @echo "There is no source path at $(1).",@echo ">>> Found exist$(1) will be deleted." && rm -f $(1) )
 endef
